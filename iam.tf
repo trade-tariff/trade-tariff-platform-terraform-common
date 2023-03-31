@@ -2,7 +2,7 @@ resource "aws_iam_access_key" "service_account" {
   user = aws_iam_user.service_account.name
 }
 
-resource "aws_iam_user" "service-account" {
+resource "aws_iam_user" "service_account" {
   name = "${local.project}-service-account"
   path = "/system/"
 }

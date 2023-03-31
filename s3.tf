@@ -1,11 +1,11 @@
 locals {
-  ci-account-s3-policies = [
+  ci_account_s3_policies = [
     "reporting",
     "search-configuration",
     "opensearch-package",
     "database-backups",
   ]
-  service-account-s3-policies = [
+  service_account_s3_policies = [
     "search-configuration",
     "opensearch-package",
   ]
@@ -16,16 +16,16 @@ data "aws_kms_key" "s3_kms_encryption_key" {
 }
 
 resource "aws_s3_bucket" "reporting" {
-  bucket = "${var.project-key}-reporting"
+  bucket = "${local.project}-reporting"
   acl    = "private"
 
   tags = {
-    Project = var.project-key
+    Project = local.project
   }
 }
 
-resource "aws_s3_bucket" "terragrunt-state" {
-  bucket = "${var.project-key}-terragrunt-state"
+resource "aws_s3_bucket" "terragrunt_state" {
+  bucket = "${local.project}-terragrunt-state"
   acl    = "private"
 
   server_side_encryption_configuration {
@@ -38,27 +38,27 @@ resource "aws_s3_bucket" "terragrunt-state" {
     }
   }
   tags = {
-    Project = var.project-key
+    Project = local.project
   }
 }
 
-resource "aws_s3_bucket" "database-backups" {
-  bucket = "${var.project-key}-database-backups"
+resource "aws_s3_bucket" "database_backups" {
+  bucket = "${local.project}-database-backups"
   acl    = "private"
 
   tags = {
-    Project = var.project-key
+    Project = local.project
   }
 }
 
 resource "aws_s3_bucket" "opensearch_packages" {
   count = length(var.environments)
 
-  bucket = "${var.project-key}-opensearch-packages-${var.environments[count.index]}"
+  bucket = "${local.project}-opensearch-packages-${var.environments[count.index]}"
   acl    = "private"
 
   tags = {
-    Project     = var.project-key
+    Project     = local.project
     Environment = element(var.environments, count.index)
   }
 }
@@ -66,11 +66,11 @@ resource "aws_s3_bucket" "opensearch_packages" {
 resource "aws_s3_bucket" "search_configuration" {
   count = length(var.environments)
 
-  bucket = "${var.project-key}-search-configuration-${var.environments[count.index]}"
+  bucket = "${local.project}-search-configuration-${var.environments[count.index]}"
   acl    = "private"
 
   tags = {
-    Project     = var.project-key
+    Project     = local.project
     Environment = element(var.environments, count.index)
   }
 }
@@ -84,8 +84,8 @@ resource "aws_s3_bucket_public_access_block" "reporting" {
   ignore_public_acls      = true
 }
 
-resource "aws_s3_bucket_public_access_block" "database-backups" {
-  bucket = aws_s3_bucket.database-backups.id
+resource "aws_s3_bucket_public_access_block" "database_backups" {
+  bucket = aws_s3_bucket.database_backups.id
 
   restrict_public_buckets = true
   block_public_acls       = true
@@ -93,7 +93,7 @@ resource "aws_s3_bucket_public_access_block" "database-backups" {
   ignore_public_acls      = true
 }
 
-resource "aws_s3_bucket_public_access_block" "opensearch-packages" {
+resource "aws_s3_bucket_public_access_block" "opensearch_packages" {
   count  = length(aws_s3_bucket.opensearch_packages)
   bucket = aws_s3_bucket.opensearch_packages[count.index].id
 
@@ -103,7 +103,7 @@ resource "aws_s3_bucket_public_access_block" "opensearch-packages" {
   ignore_public_acls      = true
 }
 
-resource "aws_s3_bucket_public_access_block" "search-configuration" {
+resource "aws_s3_bucket_public_access_block" "search_configuration" {
   count  = length(aws_s3_bucket.search_configuration)
   bucket = aws_s3_bucket.search_configuration[count.index].id
 
@@ -113,43 +113,43 @@ resource "aws_s3_bucket_public_access_block" "search-configuration" {
   ignore_public_acls      = true
 }
 
-resource "aws_iam_policy" "terragrunt-state" {
+resource "aws_iam_policy" "terragrunt_state" {
   name        = "terragrunt-state-read-write"
   description = "Provides read and write access to the global terragrunt-state bucket. This is where all of our terraform state files live."
-  policy      = data.aws_iam_policy_document.s3-terragrunt-state-policy.json
+  policy      = data.aws_iam_policy_document.s3_terragrunt_state_policy.json
 }
 
 resource "aws_iam_policy" "reporting" {
   name        = "reporting-read-write"
   description = "Provides read and write access to the generic reporting bucket."
-  policy      = data.aws_iam_policy_document.s3-reporting-policy.json
+  policy      = data.aws_iam_policy_document.s3_reporting_policy.json
 }
 
-resource "aws_iam_policy" "database-backups-read" {
+resource "aws_iam_policy" "database_backups_read" {
   name        = "database-backups-read"
   description = "Enables reading database backups"
-  policy      = data.aws_iam_policy_document.s3-database-backups-read-policy.json
+  policy      = data.aws_iam_policy_document.s3_database_backups_read_policy.json
 }
 
-resource "aws_iam_policy" "database-backups-read-write" {
+resource "aws_iam_policy" "database_backups_read_write" {
   name        = "database-backups-read-write"
   description = "Enables reading and writing database backups"
-  policy      = data.aws_iam_policy_document.s3-database-backups-read-write-policy.json
+  policy      = data.aws_iam_policy_document.s3_database_backups_read_write_policy.json
 }
 
-resource "aws_iam_policy" "opensearch-package" {
+resource "aws_iam_policy" "opensearch_package" {
   name        = "opensearch-package-read-write"
   description = "Provides read and write access to manage opensearch synonym packages"
-  policy      = data.aws_iam_policy_document.s3-search-package-policy.json
+  policy      = data.aws_iam_policy_document.s3_search_package_policy.json
 }
 
-resource "aws_iam_policy" "search-configuration" {
+resource "aws_iam_policy" "search_configuration" {
   name        = "search-configuration-read-write"
   description = "Provides read and write access to manage search configuration fixtures - especially those used for search query parsing/spelling corrections, etc."
-  policy      = data.aws_iam_policy_document.s3-search-configuration-policy.json
+  policy      = data.aws_iam_policy_document.s3_search_configuration_policy.json
 }
 
-data "aws_iam_policy_document" "s3-terragrunt-state-policy" {
+data "aws_iam_policy_document" "s3_terragrunt_state_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -195,7 +195,7 @@ data "aws_iam_policy_document" "s3-terragrunt-state-policy" {
   }
 }
 
-data "aws_iam_policy_document" "s3-reporting-policy" {
+data "aws_iam_policy_document" "s3_reporting_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -241,7 +241,7 @@ data "aws_iam_policy_document" "s3-reporting-policy" {
   }
 }
 
-data "aws_iam_policy_document" "s3-database-backups-read-write-policy" {
+data "aws_iam_policy_document" "s3_database_backups_read_write_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -287,7 +287,7 @@ data "aws_iam_policy_document" "s3-database-backups-read-write-policy" {
   }
 }
 
-data "aws_iam_policy_document" "s3-database-backups-read-policy" {
+data "aws_iam_policy_document" "s3_database_backups_read_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -322,7 +322,7 @@ data "aws_iam_policy_document" "s3-database-backups-read-policy" {
   }
 }
 
-data "aws_iam_policy_document" "s3-search-package-policy" {
+data "aws_iam_policy_document" "s3_search_package_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -367,7 +367,7 @@ data "aws_iam_policy_document" "s3-search-package-policy" {
   }
 }
 
-data "aws_iam_policy_document" "s3-search-configuration-policy" {
+data "aws_iam_policy_document" "s3_search_configuration_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -412,24 +412,24 @@ data "aws_iam_policy_document" "s3-search-configuration-policy" {
   }
 }
 
-resource "aws_iam_user_policy_attachment" "ci-account-s3-attachments" {
-  count      = length(local.ci-account-s3-policies)
-  user       = aws_iam_user.ci-account.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${local.ci-account-s3-policies[count.index]}-read-write"
+resource "aws_iam_user_policy_attachment" "ci_account_s3_attachments" {
+  count      = length(local.ci_account_s3_policies)
+  user       = aws_iam_user.ci_account.name
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${local.ci_account_s3_policies[count.index]}-read-write"
 }
 
-resource "aws_iam_user_policy_attachment" "service-account-s3-attachments" {
-  count      = length(local.service-account-s3-policies)
-  user       = aws_iam_user.service-account.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${local.service-account-s3-policies[count.index]}-read-write"
+resource "aws_iam_user_policy_attachment" "service_account_s3_attachments" {
+  count      = length(local.service_account_s3_policies)
+  user       = aws_iam_user.service_account.name
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${local.service_account_s3_policies[count.index]}-read-write"
 }
 
-resource "aws_iam_user_policy_attachment" "dit-database-backups-account-s3-attachments" {
-  user       = aws_iam_user.dit-database-backups-account.name
-  policy_arn = aws_iam_policy.database-backups-read.arn
+resource "aws_iam_user_policy_attachment" "dit_database_backups_account_s3_attachments" {
+  user       = aws_iam_user.dit_database_backups_account.name
+  policy_arn = aws_iam_policy.database_backups_read.arn
 }
 
-resource "aws_iam_user_policy_attachment" "trade-tariff-bot-terragrunt-state-s3-attachment" {
-  user       = aws_iam_user.trade-tariff-bot-account.name
-  policy_arn = aws_iam_policy.terragrunt-state.arn
+resource "aws_iam_user_policy_attachment" "trade_tariff_bot_terragrunt_state_s3_attachment" {
+  user       = aws_iam_user.trade_tariff_bot_account.name
+  policy_arn = aws_iam_policy.terragrunt_state.arn
 }
