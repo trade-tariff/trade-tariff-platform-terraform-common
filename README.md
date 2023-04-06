@@ -2,6 +2,28 @@
 
 Repository to store the Terraform for common AWS infrastructure.
 
+## Making changes
+
+Any changes to the infrastructure must go through the pull request process.
+Terraform commands are run in CI automatically when commits are pushed to a
+branch, and the plan output is posted as a comment to an opened pull request.
+
+Once the changes are merged into main, they will be applied automatically.
+
+## Running locally
+
+Much of the configuration can be tested via the use of the included
+[pre-commit](https://pre-commit.com/) hooks. It is recommended to run these
+as it will run `terraform fmt` and `validate` steps against your changes,
+catching any errors.
+
+To avoid having to input variables manually when running commands, consider
+creating `.tfvars` files for this purpose. They are `gitignore`d and should
+not be committed to this repository.
+
+If you need to run plans/applies locally, you will need **AWS credentials**
+configured before you can do so.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
