@@ -113,7 +113,7 @@ data "aws_iam_policy_document" "es" {
       "es:UpdatePackage",
       "es:ListPackagesForDomain",
     ]
-    resources = "*"
+    resources = ["*"]
   }
 
   statement {
@@ -140,7 +140,7 @@ data "aws_iam_policy_document" "ses" {
       "ses:SendEmail",
       "ses:SendRawEmail",
     ]
-    resources = "*"
+    resources = ["*"]
   }
 }
 

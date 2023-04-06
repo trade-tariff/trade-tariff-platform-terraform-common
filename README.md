@@ -31,14 +31,10 @@ No modules.
 | [aws_iam_access_key.service_account](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_access_key) | resource |
 | [aws_iam_access_key.trade_tariff_bot_account](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_access_key) | resource |
 | [aws_iam_policy.database_backups_read](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.database_backups_read_write](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ecr_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.es_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.opensearch_package](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.reporting](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.search_configuration](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ses_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.terragrunt_state](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_policy) | resource |
 | [aws_iam_role.ecr_access](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_role) | resource |
 | [aws_iam_user.ci_account](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user) | resource |
 | [aws_iam_user.dit_database_backups_account](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user) | resource |
@@ -54,15 +50,9 @@ No modules.
 | [aws_iam_user_policy_attachment.trade_tariff_bot_terragrunt_state_s3_attachment](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user_policy_attachment) | resource |
 | [aws_route53_record.google_validation](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/route53_record) | resource |
 | [aws_route53_record.tariff_domain_verification_record](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/route53_record) | resource |
-| [aws_s3_bucket.database_backups](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket.opensearch_packages](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket.reporting](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket.search_configuration](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket.terragrunt_state](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_public_access_block.database_backups](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_public_access_block) | resource |
-| [aws_s3_bucket_public_access_block.opensearch_packages](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_public_access_block) | resource |
-| [aws_s3_bucket_public_access_block.reporting](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_public_access_block) | resource |
-| [aws_s3_bucket_public_access_block.search_configuration](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_acl.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_acl) | resource |
+| [aws_s3_bucket_public_access_block.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_ses_domain_identity.tariff_domain](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ses_domain_identity) | resource |
 | [aws_ses_domain_identity_verification.tariff_domain_verification](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ses_domain_identity_verification) | resource |
 | [aws_ses_email_identity.notify_email](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ses_email_identity) | resource |
@@ -70,11 +60,6 @@ No modules.
 | [aws_iam_policy_document.ecr](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.es](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.s3_database_backups_read_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.s3_database_backups_read_write_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.s3_reporting_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.s3_search_configuration_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.s3_search_package_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.s3_terragrunt_state_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ses](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ses_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_kms_key.s3_kms_encryption_key](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/kms_key) | data source |
@@ -88,7 +73,6 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_docker_repositories"></a> [docker\_repositories](#input\_docker\_repositories) | List of repositories to create. | `list(string)` | <pre>[<br>  "tariff-backend",<br>  "tariff-frontend",<br>  "tariff-dutycalculator",<br>  "tariff-admin",<br>  "tariff-search-query-parser",<br>  "signon"<br>]</pre> | no |
-| <a name="input_environments"></a> [environments](#input\_environments) | List of environment name keys to use in environment interpolation. | `list(any)` | <pre>[<br>  "development",<br>  "staging",<br>  "production"<br>]</pre> | no |
 | <a name="input_google_site_verification"></a> [google\_site\_verification](#input\_google\_site\_verification) | Google site verification TXT record value. | `string` | n/a | yes |
 | <a name="input_notification_email"></a> [notification\_email](#input\_notification\_email) | Email address to send worker reports from. | `string` | `"trade-tariff-support@enginegroup.com"` | no |
 

@@ -32,6 +32,6 @@ data "aws_iam_policy_document" "ses_policy" {
       "ses:SendEmail",
       "ses:SendRawEmail"
     ]
-    resources = "*"
+    resources = ["*"]
   }
 }

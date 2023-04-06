@@ -33,6 +33,4 @@ resource "aws_ecr_lifecycle_policy" "rule" {
       }
     }]
   })
-
-  tags = local.tags
 }

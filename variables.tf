@@ -1,9 +1,3 @@
-variable "environments" {
-  type        = list(any)
-  description = "List of environment name keys to use in environment interpolation."
-  default     = ["development", "staging", "production"]
-}
-
 variable "notification_email" {
   type        = string
   description = "Email address to send worker reports from."

@@ -1,10 +1,10 @@
 locals {
-  project  = "trade-tariff"
-  base_url = "${local.project}.service.gov.uk"
+  project    = "trade-tariff"
+  base_url   = "${local.project}.service.gov.uk"
+  account_id = data.aws_caller_identity.current.account_id
 
   tags = {
-    Project     = local.project
-    Environment = var.environment
+    Project = local.project
   }
 }
 
