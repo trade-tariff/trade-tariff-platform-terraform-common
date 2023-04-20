@@ -1,6 +1,6 @@
 resource "aws_ecr_repository" "docker" {
-  count                = length(var.docker_repositories)
-  name                 = element(var.docker_repositories, count.index)
+  for_each             = toset(var.docker_repositories)
+  name                 = each.key
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -11,8 +11,8 @@ resource "aws_ecr_repository" "docker" {
 }
 
 resource "aws_ecr_lifecycle_policy" "rule" {
-  count      = length(var.docker_repositories)
-  repository = element(var.docker_repositories, count.index)
+  for_each   = toset(var.docker_repositories)
+  repository = aws_ecr_repository.docker[each.value].name
 
   depends_on = [aws_ecr_repository.docker]
 

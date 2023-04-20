@@ -5,15 +5,15 @@ locals {
     "opensearch-package",
     "database-backups",
   ]
+
   service_account_s3_policies = [
     "search-configuration",
     "opensearch-package",
   ]
 
   buckets = {
-    reporting  = "${local.project}-reporting"
-    terragrunt = "${local.project}-terragrunt-state"
-    backups    = "${local.project}-database-backups"
+    reporting = "${local.project}-reporting"
+    backups   = "${local.project}-database-backups"
   }
 
   bucket_permissions = {
@@ -68,17 +68,19 @@ data "aws_kms_key" "s3_kms_encryption_key" {
 resource "aws_s3_bucket" "this" {
   for_each = local.buckets
   bucket   = each.value
-  server_side_encryption_configuration {
-    rule {
-      bucket_key_enabled = false
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = data.aws_kms_key.s3_kms_encryption_key.id
-        sse_algorithm     = "aws:kms"
-      }
+  tags     = local.tags
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+  for_each = local.buckets
+  bucket   = each.value
+  rule {
+    bucket_key_enabled = false
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = data.aws_kms_key.s3_kms_encryption_key.id
+      sse_algorithm     = "aws:kms"
     }
   }
-
-  tags = local.tags
 }
 
 resource "aws_s3_bucket_acl" "this" {
@@ -134,23 +136,18 @@ data "aws_iam_policy_document" "s3_database_backups_read_policy" {
 }
 
 resource "aws_iam_user_policy_attachment" "ci_account_s3_attachments" {
-  count      = length(local.ci_account_s3_policies)
+  for_each   = toset(local.ci_account_s3_policies)
   user       = aws_iam_user.ci_account.name
-  policy_arn = "arn:aws:iam::${local.account_id}:policy/${local.ci_account_s3_policies[count.index]}-read-write"
+  policy_arn = "arn:aws:iam::${local.account_id}:policy/${each.value}-read-write"
 }
 
 resource "aws_iam_user_policy_attachment" "service_account_s3_attachments" {
-  count      = length(local.service_account_s3_policies)
+  for_each   = toset(local.service_account_s3_policies)
   user       = aws_iam_user.service_account.name
-  policy_arn = "arn:aws:iam::${local.account_id}:policy/${local.service_account_s3_policies[count.index]}-read-write"
+  policy_arn = "arn:aws:iam::${local.account_id}:policy/${each.value}-read-write"
 }
 
 resource "aws_iam_user_policy_attachment" "dit_database_backups_account_s3_attachments" {
   user       = aws_iam_user.dit_database_backups_account.name
   policy_arn = aws_iam_policy.database_backups_read.arn
-}
-
-resource "aws_iam_user_policy_attachment" "trade_tariff_bot_terragrunt_state_s3_attachment" {
-  user       = aws_iam_user.trade_tariff_bot_account.name
-  policy_arn = aws_iam_policy.this["terragrunt"].arn
 }

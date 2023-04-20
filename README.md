@@ -69,12 +69,12 @@ No modules.
 | [aws_iam_user_policy_attachment.ci_ses](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user_policy_attachment) | resource |
 | [aws_iam_user_policy_attachment.dit_database_backups_account_s3_attachments](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user_policy_attachment) | resource |
 | [aws_iam_user_policy_attachment.service_account_s3_attachments](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user_policy_attachment) | resource |
-| [aws_iam_user_policy_attachment.trade_tariff_bot_terragrunt_state_s3_attachment](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user_policy_attachment) | resource |
 | [aws_route53_record.google_validation](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/route53_record) | resource |
 | [aws_route53_record.tariff_domain_verification_record](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/route53_record) | resource |
 | [aws_s3_bucket.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_acl.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_acl) | resource |
 | [aws_s3_bucket_public_access_block.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
 | [aws_ses_domain_identity.tariff_domain](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ses_domain_identity) | resource |
 | [aws_ses_domain_identity_verification.tariff_domain_verification](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ses_domain_identity_verification) | resource |
 | [aws_ses_email_identity.notify_email](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ses_email_identity) | resource |

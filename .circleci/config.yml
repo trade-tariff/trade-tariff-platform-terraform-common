@@ -9,6 +9,8 @@ executors:
     resource_class: small
     docker:
       - image: hashicorp/terraform:1.4.0
+    environment:
+      TF_IN_AUTOMATION: 1
 
 jobs:
   fmt_validate_terraform:
@@ -26,6 +28,13 @@ jobs:
       - terraform/init
       - terraform/plan
 
+  apply_terraform:
+    executor: default
+    steps:
+      - checkout
+      - terraform/init
+      - terraform/apply
+
 workflows:
   version: 2
   terraform:
@@ -36,6 +45,7 @@ workflows:
             branches:
               ignore:
                 - main
+
       - plan_terraform:
           context: trade-tariff-bot-github
           requires:
@@ -43,4 +53,11 @@ workflows:
           filters:
             branches:
               ignore:
+                - main
+
+      - apply_terraform:
+          context: trade-tariff-bot-github
+          filters:
+            branches:
+              only:
                 - main
