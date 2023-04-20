@@ -3,7 +3,7 @@ locals {
     "reporting",
     "search-configuration",
     "opensearch-package",
-    "database-backups",
+    "backups",
   ]
 
   service_account_s3_policies = [
@@ -17,13 +17,21 @@ locals {
   }
 
   bucket_permissions = {
-    read_write = [
+    write = [
       "s3:AbortMultipartUpload",
       "s3:AbortUpload",
       "s3:DeleteObject",
       "s3:DeleteObjectTagging",
       "s3:DeleteObjectVersion",
       "s3:DeleteObjectVersionTagging",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:PutObjectTagging",
+      "s3:PutObjectVersionAcl",
+      "s3:PutObjectVersionTagging",
+      "s3:RestoreObject"
+    ]
+    read = [
       "s3:GetBucketLocation",
       "s3:GetObject",
       "s3:GetObjectAcl",
@@ -39,30 +47,8 @@ locals {
       "s3:ListMultipartUploadParts",
       "s3:ListObjectsV2",
       "s3:ListUploadParts",
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:PutObjectTagging",
-      "s3:PutObjectVersionAcl",
-      "s3:PutObjectVersionTagging",
-      "s3:RestoreObject"
-    ]
-    read = [
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-      "s3:GetObjectTagging",
-      "s3:GetObjectTorrent",
-      "s3:GetObjectVersion",
-      "s3:GetObjectVersionAcl",
-      "s3:GetObjectVersionTagging",
-      "s3:GetObjectVersionTorrent",
-      "s3:ListUploadParts",
-      "s3:ListObjectsV2",
     ]
   }
-}
-
-data "aws_kms_key" "s3_kms_encryption_key" {
-  key_id = "alias/aws/s3"
 }
 
 resource "aws_s3_bucket" "this" {
@@ -77,8 +63,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   rule {
     bucket_key_enabled = false
     apply_server_side_encryption_by_default {
-      kms_master_key_id = data.aws_kms_key.s3_kms_encryption_key.id
-      sse_algorithm     = "aws:kms"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -113,7 +98,17 @@ resource "aws_iam_policy" "this" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = local.bucket_permissions.read_write
+        Sid    = "S3Read"
+        Action = local.bucket_permissions.read
+        Effect = "Allow"
+        Resource = [
+          aws_s3_bucket.this[each.key].arn,
+          "${aws_s3_bucket.this[each.key].arn}/*",
+        ]
+      },
+      {
+        Sid    = "S3Write"
+        Action = local.bucket_permissions.write
         Effect = "Allow"
         Resource = [
           aws_s3_bucket.this[each.key].arn,

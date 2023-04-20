@@ -84,7 +84,6 @@ No modules.
 | [aws_iam_policy_document.s3_database_backups_read_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ses](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ses_policy](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_kms_key.s3_kms_encryption_key](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/kms_key) | data source |
 | [aws_opensearch_domain.development](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/opensearch_domain) | data source |
 | [aws_opensearch_domain.production](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/opensearch_domain) | data source |
 | [aws_opensearch_domain.staging](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/opensearch_domain) | data source |
