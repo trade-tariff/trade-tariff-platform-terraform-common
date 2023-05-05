@@ -10,3 +10,12 @@ resource "aws_route53_record" "google_validation" {
   ttl     = "300"
   records = [var.google_site_verification]
 }
+
+/* dns record for trade tariff reporting */
+resource "aws_route53_record" "trade_tariff_reporting" {
+  zone_id = data.aws_route53_zone.selected.id
+  name    = var.trade_tariff_reporting
+  type    = "CNAME"
+  ttl     = "300"
+  records = [aws_cloudfront_distribution.s3_distribution_trade_tariff_reporting.domain_name]
+}

@@ -17,3 +17,9 @@ terraform {
 }
 
 provider "aws" {}
+
+/* Additional provider configuration for us-east-1 region */
+provider "aws" {
+  alias  = "east"
+  region = "us-east-1"
+}

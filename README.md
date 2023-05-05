@@ -37,6 +37,7 @@ configured before you can do so.
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 4.61.0 |
+| <a name="provider_aws.east"></a> [aws.east](#provider\_aws.east) | 4.61.0 |
 
 ## Modules
 
@@ -46,6 +47,8 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_cloudfront_distribution.s3_distribution_trade_tariff_reporting](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/cloudfront_distribution) | resource |
+| [aws_cloudfront_origin_access_identity.trade_tariff_reporting_identity](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/cloudfront_origin_access_identity) | resource |
 | [aws_ecr_lifecycle_policy.rule](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ecr_lifecycle_policy) | resource |
 | [aws_ecr_repository.docker](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/ecr_repository) | resource |
 | [aws_iam_access_key.ci_account](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_access_key) | resource |
@@ -71,6 +74,7 @@ No modules.
 | [aws_iam_user_policy_attachment.service_account_s3_attachments](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/iam_user_policy_attachment) | resource |
 | [aws_route53_record.google_validation](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/route53_record) | resource |
 | [aws_route53_record.tariff_domain_verification_record](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/route53_record) | resource |
+| [aws_route53_record.trade_tariff_reporting](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/route53_record) | resource |
 | [aws_s3_bucket.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_acl.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_acl) | resource |
 | [aws_s3_bucket_public_access_block.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/resources/s3_bucket_public_access_block) | resource |
@@ -88,6 +92,7 @@ No modules.
 | [aws_opensearch_domain.production](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/opensearch_domain) | data source |
 | [aws_opensearch_domain.staging](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/opensearch_domain) | data source |
 | [aws_route53_zone.selected](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/route53_zone) | data source |
+| [aws_wafv2_web_acl.this](https://registry.terraform.io/providers/hashicorp/aws/4.61.0/docs/data-sources/wafv2_web_acl) | data source |
 
 ## Inputs
 
@@ -96,6 +101,9 @@ No modules.
 | <a name="input_docker_repositories"></a> [docker\_repositories](#input\_docker\_repositories) | List of repositories to create. | `list(string)` | <pre>[<br>  "tariff-backend",<br>  "tariff-frontend",<br>  "tariff-dutycalculator",<br>  "tariff-admin",<br>  "tariff-search-query-parser",<br>  "signon"<br>]</pre> | no |
 | <a name="input_google_site_verification"></a> [google\_site\_verification](#input\_google\_site\_verification) | Google site verification TXT record value. | `string` | n/a | yes |
 | <a name="input_notification_email"></a> [notification\_email](#input\_notification\_email) | Email address to send worker reports from. | `string` | `"trade-tariff-support@enginegroup.com"` | no |
+| <a name="input_s3_origin_id"></a> [s3\_origin\_id](#input\_s3\_origin\_id) | n/a | `string` | `"trade_tariff_reporting_origin"` | no |
+| <a name="input_trade_tariff_reporting"></a> [trade\_tariff\_reporting](#input\_trade\_tariff\_reporting) | n/a | `string` | `"reporting.trade-tariff.service.gov.uk"` | no |
+| <a name="input_waf_name"></a> [waf\_name](#input\_waf\_name) | n/a | `string` | `"tariff-waf-production"` | no |
 
 ## Outputs
 
