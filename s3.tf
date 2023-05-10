@@ -7,6 +7,7 @@ locals {
   ]
 
   service_account_s3_policies = [
+    "reporting",
     "search-configuration",
     "opensearch-package",
   ]
