@@ -101,7 +101,6 @@ No modules.
 | <a name="input_docker_repositories"></a> [docker\_repositories](#input\_docker\_repositories) | List of repositories to create. | `list(string)` | <pre>[<br>  "tariff-backend",<br>  "tariff-frontend",<br>  "tariff-dutycalculator",<br>  "tariff-admin",<br>  "tariff-search-query-parser",<br>  "signon"<br>]</pre> | no |
 | <a name="input_google_site_verification"></a> [google\_site\_verification](#input\_google\_site\_verification) | Google site verification TXT record value. | `string` | n/a | yes |
 | <a name="input_notification_email"></a> [notification\_email](#input\_notification\_email) | Email address to send worker reports from. | `string` | `"trade-tariff-support@enginegroup.com"` | no |
-| <a name="input_s3_origin_id"></a> [s3\_origin\_id](#input\_s3\_origin\_id) | n/a | `string` | `"trade_tariff_reporting_origin"` | no |
 | <a name="input_trade_tariff_reporting"></a> [trade\_tariff\_reporting](#input\_trade\_tariff\_reporting) | n/a | `string` | `"reporting.trade-tariff.service.gov.uk"` | no |
 | <a name="input_waf_name"></a> [waf\_name](#input\_waf\_name) | n/a | `string` | `"tariff-waf-production"` | no |
 

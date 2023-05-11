@@ -27,12 +27,12 @@ variable "trade_tariff_reporting" {
   default = "reporting.trade-tariff.service.gov.uk"
 }
 
-variable "s3_origin_id" {
-  type    = string
-  default = "trade_tariff_reporting_origin"
-}
-
 variable "waf_name" {
   type    = string
   default = "tariff-waf-production"
+}
+
+variable "s3_origin_id" {
+  type    = string
+  default = "trade_tariff_reporting_origin"
 }
