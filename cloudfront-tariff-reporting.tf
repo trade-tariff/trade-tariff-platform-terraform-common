@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "s3_distribution_trade_tariff_reporting" 
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
     compress         = true
-    target_origin_id = var.s3_origin_id
+    target_origin_id = aws_s3_bucket.this["reporting"].id
 
     forwarded_values {
       query_string = true
