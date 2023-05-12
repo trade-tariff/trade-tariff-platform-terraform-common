@@ -11,7 +11,7 @@ resource "aws_cloudfront_origin_access_identity" "trade_tariff_reporting_identit
 resource "aws_cloudfront_distribution" "s3_distribution_trade_tariff_reporting" {
   origin {
     domain_name = aws_s3_bucket.this["reporting"].bucket_regional_domain_name
-    origin_id   = var.s3_origin_id
+    origin_id   = aws_cloudfront_origin_access_identity.trade_tariff_reporting_identity.cloudfront_access_identity_path
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.trade_tariff_reporting_identity.id
