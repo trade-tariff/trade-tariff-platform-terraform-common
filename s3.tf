@@ -13,8 +13,11 @@ locals {
   ]
 
   buckets = {
+    backups = "${local.project}-database-backups"
+  }
+
+  public_buckets = {
     reporting = "${local.project}-reporting"
-    backups   = "${local.project}-database-backups"
   }
 
   bucket_permissions = {
@@ -73,6 +76,45 @@ resource "aws_s3_bucket_acl" "this" {
   for_each = local.buckets
   bucket   = each.value
   acl      = "private"
+}
+
+resource "aws_s3_bucket_acl" "public" {
+  for_each = local.public_buckets
+  bucket   = each.value
+  acl      = "public-read"
+}
+
+resource "aws_s3_bucket_public_access_block" "public" {
+  for_each = local.public_buckets
+  bucket   = each.value
+
+  restrict_public_buckets = false
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+}
+
+resource "aws_s3_bucket_policy" "public" {
+  for_each = local.public_buckets
+  bucket   = each.value
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket",
+        ]
+        Resource = [
+          "${aws_s3_bucket.this[each.key].arn}/*",
+          "${aws_s3_bucket.this[each.key].arn}",
+        ]
+      },
+    ]
+  })
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
