@@ -79,8 +79,14 @@ resource "aws_s3_bucket_policy" "cloudfront" {
 
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.this["reporting"].arn}/*"]
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ]
+    resources = [
+      "${aws_s3_bucket.this["reporting"].arn}/*",
+      aws_s3_bucket.this["reporting"].arn
+    ]
     principals {
       type = "AWS"
       identifiers = [
