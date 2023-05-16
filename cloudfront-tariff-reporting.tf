@@ -18,12 +18,13 @@ resource "aws_cloudfront_distribution" "s3_distribution_trade_tariff_reporting" 
     }
   }
 
-  enabled         = true
-  is_ipv6_enabled = true
-  comment         = "Trade Tariff Reporting CDN"
-  aliases         = ["reporting.trade-tariff.service.gov.uk"]
-  price_class     = "PriceClass_100"
-  web_acl_id      = data.aws_wafv2_web_acl.this.arn
+  enabled             = true
+  is_ipv6_enabled     = true
+  default_root_object = "index.html"
+  comment             = "Trade Tariff Reporting CDN"
+  aliases             = ["reporting.trade-tariff.service.gov.uk"]
+  price_class         = "PriceClass_100"
+  web_acl_id          = data.aws_wafv2_web_acl.this.arn
 
 
   default_cache_behavior {
